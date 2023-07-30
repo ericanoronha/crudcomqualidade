@@ -4,9 +4,10 @@
   "description": "Projeto CRUD com qualidade",
   "main": "index.js",
   "scripts": {
-    "start": "node ./core/crud.js",
-    "dev": "nodemon ./core/crud.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:crud": "npx ts-node ./core/crud.ts",
+    "dev:crud": "nodemon --ext ts,tsx --exec npm run start:crud",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf node_module"
   },
   "repository": {
     "type": "git",
