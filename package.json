@@ -4,7 +4,8 @@
   "description": "Projeto CRUD com qualidade",
   "main": "index.js",
   "scripts": {
-    "dev": "node ./core/crud.js",
+    "start": "node ./core/crud.js",
+    "dev": "nodemon ./core/crud.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/ericanoronha/crudcomqualidade/issues"
   },
-  "homepage": "https://github.com/ericanoronha/crudcomqualidade#readme"
+  "homepage": "https://github.com/ericanoronha/crudcomqualidade#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
