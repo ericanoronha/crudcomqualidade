@@ -4,6 +4,7 @@
   "description": "Projeto CRUD com qualidade",
   "main": "index.js",
   "scripts": {
+    "dev": "node ./core/crud.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
