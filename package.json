@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ericanoronha/crudcomqualidade#readme",
   "devDependencies": {
+    "@types/node": "^20.4.5",
     "nodemon": "^3.0.1"
   },
   "dependencies": {
