@@ -5,8 +5,11 @@ const DB_FILE_PATH = './core/db';
 console.log('[CRUD]');
 
 function create(content: string) {
+  const todo = {
+    content: content,
+  };
   // salvar content no sistema
-  fs.writeFileSync(DB_FILE_PATH, content);
+  fs.writeFileSync(DB_FILE_PATH, JSON.stringify(todo));
   return content;
 }
 
