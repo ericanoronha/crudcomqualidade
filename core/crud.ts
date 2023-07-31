@@ -10,5 +10,11 @@ function create(content: string) {
   return content;
 }
 
+function read() {
+  const db = fs.readFileSync(DB_FILE_PATH, 'utf-8');
+  return db;
+}
+
 // [SIMULATION]
-console.log(create('Teste!'));
+create('Primeira TO-DO');
+console.log(read());
