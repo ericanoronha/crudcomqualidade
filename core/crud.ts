@@ -3,10 +3,17 @@ const DB_FILE_PATH = './core/db';
 
 console.log('[CRUD]');
 
+interface Todo {
+  date: string;
+  content: string;
+  done: boolean;
+}
+
 function create(content: string) {
-  const todo = {
+  const todo: Todo = {
     date: new Date().toISOString(),
     content: content,
+    done: false,
   };
 
   const todos = [todo];
