@@ -1,14 +1,14 @@
-//const fs = require('fs'); // CommonJS
-import fs from 'fs'; // ES6
+import fs from 'fs';
 const DB_FILE_PATH = './core/db';
 
 console.log('[CRUD]');
 
 function create(content: string) {
   const todo = {
+    date: new Date().toISOString(),
     content: content,
   };
-  // salvar content no sistema
+  console.log(todo);
   fs.writeFileSync(DB_FILE_PATH, JSON.stringify(todo));
   return content;
 }
