@@ -8,8 +8,10 @@ function create(content: string) {
     date: new Date().toISOString(),
     content: content,
   };
-  console.log(todo);
-  fs.writeFileSync(DB_FILE_PATH, JSON.stringify(todo));
+
+  const todos = [todo];
+
+  fs.writeFileSync(DB_FILE_PATH, JSON.stringify(todos, null, 2));
   return content;
 }
 
