@@ -18,7 +18,7 @@ function create(content: string) {
 
   const todos = [todo];
 
-  fs.writeFileSync(DB_FILE_PATH, JSON.stringify(todos, null, 2));
+  fs.writeFileSync(DB_FILE_PATH, JSON.stringify({ todos }, null, 2));
   return content;
 }
 
