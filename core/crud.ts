@@ -17,16 +17,22 @@ function create(content: string) {
   };
 
   const todos = [todo];
-
   fs.writeFileSync(DB_FILE_PATH, JSON.stringify({ todos }, null, 2));
   return content;
 }
 
-function read() {
-  const db = fs.readFileSync(DB_FILE_PATH, 'utf-8');
-  return db;
+function read(): Array<Todo> {
+  //carrega como string
+  const dbString = fs.readFileSync(DB_FILE_PATH, 'utf-8');
+  //converte para objeto
+  const db = JSON.parse(dbString || '{}');
+  if (!db.todos) {
+    // fail fast
+    return [];
+  }
+  return db.todos;
 }
 
 // [SIMULATION]
-create('Primeira TO-DO');
+// create('Primeira TO-DO');
 console.log(read());
