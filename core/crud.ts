@@ -16,7 +16,8 @@ function create(content: string) {
     done: false,
   };
 
-  const todos = [todo];
+  const todos: Array<Todo> = [...read(), todo];
+
   fs.writeFileSync(DB_FILE_PATH, JSON.stringify({ todos }, null, 2));
   return content;
 }
@@ -34,5 +35,5 @@ function read(): Array<Todo> {
 }
 
 // [SIMULATION]
-// create('Primeira TO-DO');
+create('Segunda TO-DO');
 console.log(read());
