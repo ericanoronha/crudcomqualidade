@@ -11,7 +11,7 @@ interface Todo {
   done: boolean;
 }
 
-function create(content: string) {
+function create(content: string): Todo {
   const todo: Todo = {
     id: uuid(),
     date: new Date().toISOString(),
@@ -22,7 +22,7 @@ function create(content: string) {
   const todos: Array<Todo> = [...read(), todo];
 
   fs.writeFileSync(DB_FILE_PATH, JSON.stringify({ todos }, null, 2));
-  return content;
+  return todo;
 }
 
 function read(): Array<Todo> {
@@ -41,8 +41,18 @@ function CLEAR_DB() {
   fs.writeFileSync(DB_FILE_PATH, '');
 }
 
+function update(id: string, todo: Partial<Todo>) {
+  console.log(todo);
+  const todos = read();
+  todos.forEach((currentTodo) => {
+    console.log(currentTodo);
+  });
+}
+
 // Simulação
 CLEAR_DB();
 create('Primeira TO-DO');
 create('Segunda TO-DO');
+const terceiraTodo = create('Terceira TODO');
+update(terceiraTodo.id, { content: 'Conteúdo novo' });
 console.log(read());
