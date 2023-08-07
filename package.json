@@ -22,9 +22,11 @@
   "homepage": "https://github.com/ericanoronha/crudcomqualidade#readme",
   "devDependencies": {
     "@types/node": "^20.4.5",
+    "@types/uuid": "^9.0.2",
     "nodemon": "^3.0.1"
   },
   "dependencies": {
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "uuid": "^9.0.0"
   }
 }
