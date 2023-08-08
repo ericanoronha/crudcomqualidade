@@ -28,6 +28,18 @@ const pallete = {
     x800: '#AD1D07',
     x900: '#841003',
   },
+  dangerPink: {
+    x050: '#FDEDF2',
+    x100: '#FBDCE6',
+    x200: '#F9CADA',
+    x300: '#F6A8C2',
+    x400: '#F285AA',
+    x500: '#EF6292',
+    x600: '#EC407A',
+    x700: '#C23564',
+    x800: '#97294E',
+    x900: '#6C1E38',
+  },
   red: {
     x050: '#FFE3E3',
     x100: '#FFBDBD',

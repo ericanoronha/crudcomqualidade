@@ -1,12 +1,12 @@
 import React from 'react';
 import { GlobalStyles } from '../src/theme/GlobalStyles';
 
-const bg = 'https://mariosouto.com/cursos/crudcomqualidade/bg';
+const bg = '/bg.jpg';
 
 function HomePage() {
   return (
     <main>
-      <GlobalStyles />
+      <GlobalStyles themeName="dangerPink" />
       <header
         style={{
           backgroundImage: `url('${bg}')`,
