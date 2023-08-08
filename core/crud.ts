@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from "fs";
 import { v4 as uuid } from "uuid";
 const DB_FILE_PATH = "./core/db";
