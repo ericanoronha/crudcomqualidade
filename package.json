@@ -6,6 +6,10 @@
   "scripts": {
     "start:crud": "npx ts-node ./core/crud.ts",
     "dev:crud": "nodemon --ext ts,tsx --exec npm run start:crud",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf node_module"
   },
@@ -26,6 +30,9 @@
     "nodemon": "^3.0.1"
   },
   "dependencies": {
+    "next": "^13.4.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^5.1.6",
     "uuid": "^9.0.0"
   }
