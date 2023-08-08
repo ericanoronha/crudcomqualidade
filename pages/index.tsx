@@ -1,8 +1,10 @@
 import React from 'react';
+import { GlobalStyles } from '../src/theme/GlobalStyles';
 
 function HomePage() {
   return (
     <main>
+      <GlobalStyles />
       <header
         style={
           {
