@@ -6,7 +6,7 @@
   "scripts": {
     "start:crud": "npx ts-node ./core/crud.ts",
     "dev:crud": "nodemon --ext ts,tsx --exec npm run start:crud",
-    "dev": "next dev",
+    "dev": "next dev -- --port=3029",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -26,6 +26,7 @@
   "homepage": "https://github.com/ericanoronha/crudcomqualidade#readme",
   "devDependencies": {
     "@types/node": "^20.4.5",
+    "@types/react": "18.2.18",
     "@types/uuid": "^9.0.2",
     "nodemon": "^3.0.1"
   },
