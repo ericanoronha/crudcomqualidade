@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { NextApiRequest, NextApiResponse } from "next";
-import { read } from "core/crud";
+import { read } from "@db-crud-todo";
 
 export default function handler(
   request: NextApiRequest,

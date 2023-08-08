@@ -3,8 +3,6 @@ import fs from "fs";
 import { v4 as uuid } from "uuid";
 const DB_FILE_PATH = "./core/db";
 
-console.log("[CRUD]");
-
 type UUID = string;
 
 interface Todo {
@@ -81,12 +79,12 @@ function CLEAR_DB() {
 }
 
 // Simulação
-CLEAR_DB();
-create("Primeira TO-DO");
-const secondTodo = create("Segunda TO-DO");
-deleteById(secondTodo.id);
-const thirdTodo = create("Terceira TODO");
-updateContentById(thirdTodo.id, "Terceira TODO está atualizada!");
-const todos = read();
-console.log(todos);
-console.log(todos.length);
+// CLEAR_DB();
+// create("Primeira TO-DO");
+// const secondTodo = create("Segunda TO-DO");
+// deleteById(secondTodo.id);
+// const thirdTodo = create("Terceira TODO");
+// updateContentById(thirdTodo.id, "Terceira TODO está atualizada!");
+// const todos = read();
+// console.log(todos);
+// console.log(todos.length);
