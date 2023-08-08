@@ -28,7 +28,7 @@ function create(content: string): Todo {
   return todo;
 }
 
-function read(): Array<Todo> {
+export function read(): Array<Todo> {
   //carrega como string
   const dbString = fs.readFileSync(DB_FILE_PATH, "utf-8");
   //converte para objeto
