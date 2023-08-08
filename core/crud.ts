@@ -41,16 +41,20 @@ function CLEAR_DB() {
   fs.writeFileSync(DB_FILE_PATH, '');
 }
 
-function update(id: string, partialTodo: Partial<Todo>) {
-  console.log(partialTodo);
+function update(id: string, partialTodo: Partial<Todo>): Todo {
+  let updatedTodo;
   const todos = read();
   todos.forEach((currentTodo) => {
     const isToUpdate = currentTodo.id === id;
     if (isToUpdate) {
-      Object.assign(currentTodo, partialTodo);
+      updatedTodo = Object.assign(currentTodo, partialTodo);
     }
   });
   fs.writeFileSync(DB_FILE_PATH, JSON.stringify({ todos }, null, 2));
+  if (!updatedTodo) {
+    throw new Error('Please provide a valid ID');
+  }
+  return updatedTodo;
 }
 
 // Simulação
@@ -59,4 +63,5 @@ create('Primeira TO-DO');
 create('Segunda TO-DO');
 const terceiraTodo = create('Terceira TODO');
 update(terceiraTodo.id, { content: 'Conteúdo novo' });
+update(terceiraTodo.id + 5, { done: true });
 console.log(read());
