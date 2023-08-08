@@ -37,10 +37,6 @@ function read(): Array<Todo> {
   return db.todos;
 }
 
-function CLEAR_DB() {
-  fs.writeFileSync(DB_FILE_PATH, '');
-}
-
 function update(id: string, partialTodo: Partial<Todo>): Todo {
   let updatedTodo;
   const todos = read();
@@ -61,12 +57,35 @@ function updateContentById(id: string, content: string): Todo {
   return update(id, { content });
 }
 
+function deleteById(id: string) {
+  const all = read();
+  const allExceptOne = all.filter((todo) => {
+    if (id === todo.id) {
+      return false;
+    }
+    return true;
+  });
+  console.log('allExceptOne ', allExceptOne);
+
+  fs.writeFileSync(
+    DB_FILE_PATH,
+    JSON.stringify({ todos: allExceptOne }, null, 2),
+  );
+}
+
+function CLEAR_DB() {
+  fs.writeFileSync(DB_FILE_PATH, '');
+}
+
 // Simulação
 CLEAR_DB();
 create('Primeira TO-DO');
-create('Segunda TO-DO');
-const terceiraTodo = create('Terceira TODO');
-update(terceiraTodo.id, { content: 'Conteúdo novo' });
-updateContentById(terceiraTodo.id, 'TODO atualizada!');
+const secondTodo = create('Segunda TO-DO');
+deleteById(secondTodo.id);
+const thirdTodo = create('Terceira TODO');
+//update(thirdTodo.id, { content: 'Conteúdo novo' });
+updateContentById(thirdTodo.id, 'Terceira TODO está atualizada!');
 //update(terceiraTodo.id + 5, { done: true });
-console.log(read());
+const todos = read();
+console.log(todos);
+console.log(todos.length);
