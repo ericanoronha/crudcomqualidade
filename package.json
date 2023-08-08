@@ -9,7 +9,7 @@
     "dev": "next dev -- --port=3029",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint './**/*.{jsx,jsx,ts,tsx}'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf node_module"
   },
