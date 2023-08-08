@@ -41,12 +41,16 @@ function CLEAR_DB() {
   fs.writeFileSync(DB_FILE_PATH, '');
 }
 
-function update(id: string, todo: Partial<Todo>) {
-  console.log(todo);
+function update(id: string, partialTodo: Partial<Todo>) {
+  console.log(partialTodo);
   const todos = read();
   todos.forEach((currentTodo) => {
-    console.log(currentTodo);
+    const isToUpdate = currentTodo.id === id;
+    if (isToUpdate) {
+      Object.assign(currentTodo, partialTodo);
+    }
   });
+  fs.writeFileSync(DB_FILE_PATH, JSON.stringify({ todos }, null, 2));
 }
 
 // Simulação
