@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { NextApiRequest, NextApiResponse } from "next";
-import { read } from "@db-crud-todo";
+import { todoController } from "@server/controller/todo";
 
 export default function handler(
   request: NextApiRequest,
@@ -8,8 +8,7 @@ export default function handler(
 ) {
   console.log(request.method);
   if (request.method === "GET") {
-    const ALL_TODOS = read();
-    response.status(200).json({ todos: ALL_TODOS });
+    todoController.get(request, response);
     return;
   }
   response.status(405).json({ message: "Method not allowed" });
