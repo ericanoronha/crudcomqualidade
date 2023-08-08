@@ -10,6 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint \"./**/*.{jsx,jsx,ts,tsx}\"",
+    "lint:fix": "npm run lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf node_module"
   },
@@ -29,8 +30,8 @@
     "@types/react": "18.2.18",
     "@types/uuid": "^9.0.2",
     "nodemon": "^3.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.56.0",
     "eslint": "^8.36.0",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.6.1",

@@ -1,7 +1,7 @@
-import React from 'react';
-import { GlobalStyles } from '@ui/theme/GlobalStyles';
+import React from "react";
+import { GlobalStyles } from "@ui/theme/GlobalStyles";
 
-const bg = '/bg.jpg';
+const bg = "/bg.jpg";
 
 function HomePage() {
   return (
@@ -59,7 +59,7 @@ function HomePage() {
             </tr>
 
             <tr>
-              <td colSpan={4} align="center" style={{ textAlign: 'center' }}>
+              <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                 Carregando...
               </td>
             </tr>
@@ -71,14 +71,14 @@ function HomePage() {
             </tr>
 
             <tr>
-              <td colSpan={4} align="center" style={{ textAlign: 'center' }}>
+              <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                 <button data-type="load-more">
-                  Carregar mais{' '}
+                  Carregar mais{" "}
                   <span
                     style={{
-                      display: 'inline-block',
-                      marginLeft: '4px',
-                      fontSize: '1.2em',
+                      display: "inline-block",
+                      marginLeft: "4px",
+                      fontSize: "1.2em",
                     }}
                   >
                     ↓

@@ -1,8 +1,8 @@
-import fs from 'fs';
-import { v4 as uuid } from 'uuid';
-const DB_FILE_PATH = './core/db';
+import fs from "fs";
+import { v4 as uuid } from "uuid";
+const DB_FILE_PATH = "./core/db";
 
-console.log('[CRUD]');
+console.log("[CRUD]");
 
 type UUID = string;
 
@@ -29,9 +29,9 @@ function create(content: string): Todo {
 
 function read(): Array<Todo> {
   //carrega como string
-  const dbString = fs.readFileSync(DB_FILE_PATH, 'utf-8');
+  const dbString = fs.readFileSync(DB_FILE_PATH, "utf-8");
   //converte para objeto
-  const db = JSON.parse(dbString || '{}');
+  const db = JSON.parse(dbString || "{}");
   if (!db.todos) {
     // fail fast
     return [];
@@ -50,7 +50,7 @@ function update(id: UUID, partialTodo: Partial<Todo>): Todo {
   });
   fs.writeFileSync(DB_FILE_PATH, JSON.stringify({ todos }, null, 2));
   if (!updatedTodo) {
-    throw new Error('Please provide a valid ID');
+    throw new Error("Please provide a valid ID");
   }
   return updatedTodo;
 }
@@ -67,26 +67,26 @@ function deleteById(id: UUID) {
     }
     return true;
   });
-  console.log('allExceptOne ', allExceptOne);
+  console.log("allExceptOne ", allExceptOne);
 
   fs.writeFileSync(
     DB_FILE_PATH,
-    JSON.stringify({ todos: allExceptOne }, null, 2),
+    JSON.stringify({ todos: allExceptOne }, null, 2)
   );
 }
 
 function CLEAR_DB() {
-  fs.writeFileSync(DB_FILE_PATH, '');
+  fs.writeFileSync(DB_FILE_PATH, "");
 }
 
 // Simulação
 CLEAR_DB();
-create('Primeira TO-DO');
-const secondTodo = create('Segunda TO-DO');
+create("Primeira TO-DO");
+const secondTodo = create("Segunda TO-DO");
 deleteById(secondTodo.id);
-const thirdTodo = create('Terceira TODO');
+const thirdTodo = create("Terceira TODO");
 //update(thirdTodo.id, { content: 'Conteúdo novo' });
-updateContentById(thirdTodo.id, 'Terceira TODO está atualizada!');
+updateContentById(thirdTodo.id, "Terceira TODO está atualizada!");
 //update(terceiraTodo.id + 5, { done: true });
 const todos = read();
 console.log(todos);
