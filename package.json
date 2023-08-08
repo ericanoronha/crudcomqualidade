@@ -9,7 +9,7 @@
     "dev": "next dev -- --port=3029",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint './**/*.{jsx,jsx,ts,tsx}'",
+    "lint": "eslint \"./**/*.{jsx,jsx,ts,tsx}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf node_module"
   },
@@ -28,7 +28,16 @@
     "@types/node": "^20.4.5",
     "@types/react": "18.2.18",
     "@types/uuid": "^9.0.2",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.7"
   },
   "dependencies": {
     "next": "^13.4.13",
