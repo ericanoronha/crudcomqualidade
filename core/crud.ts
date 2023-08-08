@@ -57,11 +57,16 @@ function update(id: string, partialTodo: Partial<Todo>): Todo {
   return updatedTodo;
 }
 
+function updateContentById(id: string, content: string): Todo {
+  return update(id, { content });
+}
+
 // Simulação
 CLEAR_DB();
 create('Primeira TO-DO');
 create('Segunda TO-DO');
 const terceiraTodo = create('Terceira TODO');
 update(terceiraTodo.id, { content: 'Conteúdo novo' });
-update(terceiraTodo.id + 5, { done: true });
+updateContentById(terceiraTodo.id, 'TODO atualizada!');
+//update(terceiraTodo.id + 5, { done: true });
 console.log(read());
