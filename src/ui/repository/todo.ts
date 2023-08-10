@@ -1,12 +1,14 @@
-interface TodoRepositoryGetParams {
+interface TodoRepositoryGetInputParams {
   page: number;
 }
-interface TodoRepositoryGetOutput {
+interface TodoRepositoryGetOutputParams {
   todos: Todo[];
 }
 
-function get({ page }: TodoRepositoryGetParams): TodoRepositoryGetOutput {
-  fetch("/api/todos").then(async (respostaDoServidor) => {
+function get({
+  page,
+}: TodoRepositoryGetInputParams): Promise<TodoRepositoryGetOutputParams> {
+  return fetch("/api/todos").then(async (respostaDoServidor) => {
     const todosString = await respostaDoServidor.text();
     const todosFromServer = JSON.parse(todosString).todos;
     return { todos: todosFromServer };
