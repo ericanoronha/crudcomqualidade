@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { GlobalStyles } from "@ui/theme/GlobalStyles";
+import { todoController } from "@ui/controller/todo";
 
 const bg = "/bg.jpg";
 
+interface HomeTodo {
+  id: string;
+  date: string;
+  content: string;
+  done: boolean;
+}
+
 function HomePage() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<HomeTodo[]>([]);
 
   useEffect(() => {
-    fetch("/api/todos").then(async (respostaDoServidor) => {
-      const todosString = await respostaDoServidor.text();
-      const todosFromServer = JSON.parse(todosString).todos;
-      setTodos(todosFromServer);
+    todoController.get().then((todos) => {
+      setTodos(todos);
     });
   }, []);
 
