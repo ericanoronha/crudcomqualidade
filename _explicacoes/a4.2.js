@@ -4,10 +4,10 @@ const page = 4;
 const limit = 2;
 const ALL_TODOS = [
   {
-    content: "Primeira TODO",
+    content: "Primeira TODO!",
   },
   {
-    content: "Segunda TODO!",
+    content: "Segunda!",
   },
   {
     content: "Terceira!",

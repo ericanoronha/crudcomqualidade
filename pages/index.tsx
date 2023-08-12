@@ -16,7 +16,7 @@ function HomePage() {
   const [todos, setTodos] = useState<HomeTodo[]>([]);
 
   useEffect(() => {
-    todoController.get().then((todos) => {
+    todoController.get({ page }).then(({ todos }) => {
       setTodos(todos);
     });
   }, []);
