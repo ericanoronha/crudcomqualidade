@@ -54,6 +54,7 @@ function HomePage() {
           <input
             type="text"
             placeholder="Correr, Estudar..."
+            value={search}
             onChange={function handleSearch(event) {
               setSearch(event.target.value);
             }}
