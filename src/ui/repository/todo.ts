@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 interface TodoRepositoryGetParams {
   page: number;
   limit: number;
@@ -37,7 +36,6 @@ export const todoRepository = {
   get,
 };
 
-// Model/Schema
 interface Todo {
   id: string;
   content: string;
