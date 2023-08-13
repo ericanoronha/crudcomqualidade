@@ -17,7 +17,10 @@ function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState<HomeTodo[]>([]);
   const [search, setSearch] = useState("");
-  const homeTodos = todoController.filterTodosByContent(search, todos);
+  const homeTodos = todoController.filterTodosByContent<HomeTodo>(
+    search,
+    todos
+  );
 
   // previously filteredTodos
   // const homeTodos = todos.filter((todo) => {
