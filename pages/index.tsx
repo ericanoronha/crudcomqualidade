@@ -17,9 +17,12 @@ function HomePage() {
 
   const hasMorePages = totalPages > page;
 
+  // get infos onload
   useEffect(() => {
     todoController.get({ page }).then(({ todos, pages }) => {
-      setTodos(todos);
+      setTodos((oldTodos) => {
+        return [...oldTodos, ...todos];
+      });
       setTotalPages(pages);
     });
   }, [page]);
