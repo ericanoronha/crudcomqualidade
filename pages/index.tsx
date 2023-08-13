@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import { GlobalStyles } from "@ui/theme/GlobalStyles";
 import { todoController } from "@ui/controller/todo";
@@ -6,20 +7,22 @@ const bg = "/bg.jpg";
 
 interface HomeTodo {
   id: string;
-  date: string;
   content: string;
-  done: boolean;
 }
 
 function HomePage() {
+  const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [todos, setTodos] = useState<HomeTodo[]>([]);
 
+  const hasMorePages = totalPages > page;
+
   useEffect(() => {
-    todoController.get({ page }).then(({ todos }) => {
+    todoController.get({ page }).then(({ todos, pages }) => {
       setTodos(todos);
+      setTotalPages(pages);
     });
-  }, []);
+  }, [page]);
 
   return (
     <main>
@@ -72,35 +75,37 @@ function HomePage() {
                 </tr>
               );
             })}
-
             {/* <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   Carregando...
                 </td>
               </tr> */}
-
             {/* <tr>
                 <td colSpan={4} align="center">
                   Nenhum item encontrado
                 </td>
               </tr> */}
-
-            <tr>
-              <td colSpan={4} align="center" style={{ textAlign: "center" }}>
-                <button data-type="load-more" onClick={() => setPage(page + 1)}>
-                  Página {page} Carregar mais{" "}
-                  <span
-                    style={{
-                      display: "inline-block",
-                      marginLeft: "4px",
-                      fontSize: "1.2em",
-                    }}
+            {hasMorePages && (
+              <tr>
+                <td colSpan={4} align="center" style={{ textAlign: "center" }}>
+                  <button
+                    data-type="load-more"
+                    onClick={() => setPage(page + 1)}
                   >
-                    ↓
-                  </span>
-                </button>
-              </td>
-            </tr>
+                    Página {page} Carregar mais{" "}
+                    <span
+                      style={{
+                        display: "inline-block",
+                        marginLeft: "4px",
+                        fontSize: "1.2em",
+                      }}
+                    >
+                      ↓
+                    </span>
+                  </button>
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </section>
