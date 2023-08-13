@@ -11,21 +11,29 @@ interface HomeTodo {
 }
 
 function HomePage() {
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState<HomeTodo[]>([]);
-
   const hasMorePages = totalPages > page;
+  const hasNoTodos = todos.length === 0 && !isLoading;
 
   // get infos onload
   useEffect(() => {
-    todoController.get({ page }).then(({ todos, pages }) => {
-      setTodos((oldTodos) => {
-        return [...oldTodos, ...todos];
-      });
-      setTotalPages(pages);
-    });
-  }, [page]);
+    setInitialLoadComplete(true);
+    if (!initialLoadComplete) {
+      todoController
+        .get({ page })
+        .then(({ todos, pages }) => {
+          setTodos(todos);
+          setTotalPages(pages);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, []);
 
   return (
     <main>
@@ -78,24 +86,46 @@ function HomePage() {
                 </tr>
               );
             })}
-            {/* <tr>
+            {isLoading && (
+              <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   Carregando...
                 </td>
-              </tr> */}
-            {/* <tr>
+              </tr>
+            )}
+
+            {hasNoTodos && (
+              <tr>
                 <td colSpan={4} align="center">
                   Nenhum item encontrado
                 </td>
-              </tr> */}
+              </tr>
+            )}
+
             {hasMorePages && (
               <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
                   <button
                     data-type="load-more"
-                    onClick={() => setPage(page + 1)}
+                    onClick={() => {
+                      setIsLoading(true);
+                      const nextPage = page + 1;
+                      setPage(nextPage);
+
+                      todoController
+                        .get({ page: nextPage })
+                        .then(({ todos, pages }) => {
+                          setTodos((oldTodos) => {
+                            return [...oldTodos, ...todos];
+                          });
+                          setTotalPages(pages);
+                        })
+                        .finally(() => {
+                          setIsLoading(false);
+                        });
+                    }}
                   >
-                    Página {page} Carregar mais{" "}
+                    Carregar mais
                     <span
                       style={{
                         display: "inline-block",
