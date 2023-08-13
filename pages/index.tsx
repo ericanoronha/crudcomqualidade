@@ -20,7 +20,9 @@ function HomePage() {
 
   // previously filteredTodos
   const homeTodos = todos.filter((todo) => {
-    return todo.content.includes(search);
+    const searchNormalized = search.toLowerCase();
+    const contentNormalized = todo.content.toLowerCase();
+    return contentNormalized.includes(searchNormalized);
   });
 
   const hasMorePages = totalPages > page;
