@@ -16,8 +16,15 @@ function HomePage() {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState<HomeTodo[]>([]);
+  const [search, setSearch] = useState("");
+
+  // previously filteredTodos
+  const homeTodos = todos.filter((todo) => {
+    return todo.content.includes(search);
+  });
+
   const hasMorePages = totalPages > page;
-  const hasNoTodos = todos.length === 0 && !isLoading;
+  const hasNoTodos = homeTodos.length === 0 && !isLoading;
 
   // get infos onload
   useEffect(() => {
@@ -47,7 +54,13 @@ function HomePage() {
           <h1>O que fazer hoje?</h1>
         </div>
         <form>
-          <input type="text" placeholder="Correr, Estudar..." />
+          <input
+            type="text"
+            placeholder="Correr, Estudar..."
+            onChange={function handleSearch(event) {
+              setSearch(event.target.value);
+            }}
+          />
           <button type="submit" aria-label="Adicionar novo item">
             +
           </button>
@@ -72,7 +85,7 @@ function HomePage() {
           </thead>
 
           <tbody>
-            {todos.map((currentTodo) => {
+            {homeTodos.map((currentTodo) => {
               return (
                 <tr key={currentTodo.id}>
                   <td>
