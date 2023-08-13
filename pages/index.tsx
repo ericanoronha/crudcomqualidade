@@ -17,13 +17,14 @@ function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [todos, setTodos] = useState<HomeTodo[]>([]);
   const [search, setSearch] = useState("");
+  const homeTodos = todoController.filterTodosByContent(search, todos);
 
   // previously filteredTodos
-  const homeTodos = todos.filter((todo) => {
-    const searchNormalized = search.toLowerCase();
-    const contentNormalized = todo.content.toLowerCase();
-    return contentNormalized.includes(searchNormalized);
-  });
+  // const homeTodos = todos.filter((todo) => {
+  //   const searchNormalized = search.toLowerCase();
+  //   const contentNormalized = todo.content.toLowerCase();
+  //   return contentNormalized.includes(searchNormalized);
+  // });
 
   const hasMorePages = totalPages > page;
   const hasNoTodos = homeTodos.length === 0 && !isLoading;
