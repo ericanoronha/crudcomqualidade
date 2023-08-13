@@ -14,7 +14,6 @@ function get({
   return fetch(`/api/todos?page=${page}&limit=${limit}`).then(
     async (respostaDoServidor) => {
       const todosString = await respostaDoServidor.text();
-      // Como garantir a tipagem de tipos desconhecidos?
       const responseParsed = parseTodosFromServer(JSON.parse(todosString));
 
       return {

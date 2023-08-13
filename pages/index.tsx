@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import { GlobalStyles } from "@ui/theme/GlobalStyles";
 import { todoController } from "@ui/controller/todo";
@@ -22,17 +21,9 @@ function HomePage() {
     todos
   );
 
-  // previously filteredTodos
-  // const homeTodos = todos.filter((todo) => {
-  //   const searchNormalized = search.toLowerCase();
-  //   const contentNormalized = todo.content.toLowerCase();
-  //   return contentNormalized.includes(searchNormalized);
-  // });
-
   const hasMorePages = totalPages > page;
   const hasNoTodos = homeTodos.length === 0 && !isLoading;
 
-  // get infos onload
   useEffect(() => {
     setInitialLoadComplete(true);
     if (!initialLoadComplete) {
