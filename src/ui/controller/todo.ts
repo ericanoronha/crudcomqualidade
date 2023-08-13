@@ -5,7 +5,7 @@ interface TodoControllerGetParams {
 }
 
 async function get(params: TodoControllerGetParams) {
-  return todoRepository.get({ page: params.page, limit: 1 });
+  return todoRepository.get({ page: params.page, limit: 2 });
 }
 
 export const todoController = {
