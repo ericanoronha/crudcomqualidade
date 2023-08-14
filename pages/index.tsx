@@ -11,7 +11,7 @@ interface HomeTodo {
 
 function HomePage() {
   const initialLoadComplete = useRef(false);
-
+  const [newTodoContent, setNewTodoContent] = useState("");
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,13 +51,30 @@ function HomePage() {
         <div className="typewriter">
           <h1>O que fazer hoje?</h1>
         </div>
-        <form>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            todoController.create({
+              content: newTodoContent,
+              onSuccess(todo: HomeTodo) {
+                setTodos((oldTodos) => {
+                  return [todo, ...oldTodos];
+                });
+                setNewTodoContent("");
+              },
+              onError() {
+                alert("Você precisa ter um conteúdo para criar uma TODO!");
+              },
+            });
+          }}
+        >
           <input
             type="text"
+            aria-label="Inserir uma nova TODO"
             placeholder="Correr, Estudar..."
-            value={search}
-            onChange={function handleSearch(event) {
-              setSearch(event.target.value);
+            value={newTodoContent}
+            onChange={function newTodoHandler(event) {
+              setNewTodoContent(event.target.value);
             }}
           />
           <button type="submit" aria-label="Adicionar novo item">
@@ -68,7 +85,15 @@ function HomePage() {
 
       <section>
         <form>
-          <input type="text" placeholder="Filtrar lista atual, ex: Dentista" />
+          <input
+            aria-label="Filtrar lista"
+            type="text"
+            placeholder="Filtrar lista atual, ex: Dentista"
+            value={search}
+            onChange={function handleSearch(event) {
+              setSearch(event.target.value);
+            }}
+          />
         </form>
 
         <table border={1}>
@@ -98,6 +123,7 @@ function HomePage() {
                 </tr>
               );
             })}
+
             {isLoading && (
               <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
