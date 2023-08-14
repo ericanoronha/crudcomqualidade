@@ -36,11 +36,10 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function create(req: NextApiRequest, res: NextApiResponse) {
+  const createdTodo = await todoRepository.createByContent(req.body.content);
+
   res.status(201).json({
-    todo: {
-      id: "123",
-      content: "blablabla",
-    },
+    todo: createdTodo,
   });
   return "";
 }
