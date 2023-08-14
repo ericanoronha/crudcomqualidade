@@ -10,7 +10,6 @@ interface HomeTodo {
 }
 
 function HomePage() {
-  //const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const initialLoadComplete = useRef(false);
 
   const [totalPages, setTotalPages] = useState(0);
@@ -27,7 +26,6 @@ function HomePage() {
   const hasNoTodos = homeTodos.length === 0 && !isLoading;
 
   useEffect(() => {
-    //setInitialLoadComplete(true);
     if (!initialLoadComplete.current) {
       todoController
         .get({ page })
