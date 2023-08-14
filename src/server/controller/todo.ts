@@ -1,7 +1,7 @@
 import { todoRepository } from "@server/repository/todo";
 import { NextApiRequest, NextApiResponse } from "next";
 
-function get(req: NextApiRequest, res: NextApiResponse) {
+async function get(req: NextApiRequest, res: NextApiResponse) {
   const query = req.query;
   const page = Number(query.page);
   const limit = Number(query.limit);
@@ -35,6 +35,17 @@ function get(req: NextApiRequest, res: NextApiResponse) {
   });
 }
 
+async function create(req: NextApiRequest, res: NextApiResponse) {
+  res.status(201).json({
+    todo: {
+      id: "123",
+      content: "blablabla",
+    },
+  });
+  return "";
+}
+
 export const todoController = {
   get,
+  create,
 };
