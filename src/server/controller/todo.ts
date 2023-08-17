@@ -62,7 +62,10 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
   });
 }
 
+async function toggleDone(req: NextApiRequest, res: NextApiResponse) {}
+
 export const todoController = {
   get,
   create,
+  toggleDone,
 };
