@@ -62,7 +62,16 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
   });
 }
 
-async function toggleDone(req: NextApiRequest, res: NextApiResponse) {}
+async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
+  const todoId = req.query.id;
+  const updatedTodo = { id: todoId };
+  // chamar repository
+  todoRepository.toggleDone(todoId);
+
+  res.status(200).json({
+    todo: updatedTodo,
+  });
+}
 
 export const todoController = {
   get,
