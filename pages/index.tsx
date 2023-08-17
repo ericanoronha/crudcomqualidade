@@ -7,6 +7,7 @@ const bg = "/bg.jpg";
 interface HomeTodo {
   id: string;
   content: string;
+  done: boolean;
 }
 
 function HomePage() {
@@ -65,7 +66,7 @@ function HomePage() {
               onError(customMessage) {
                 alert(
                   customMessage ||
-                    "Você precisa ter um conteúdo para criar uma TODO"
+                    "Você precisa inserir conteúdo para criar uma nova tarefa"
                 );
               },
             });
@@ -73,14 +74,14 @@ function HomePage() {
         >
           <input
             type="text"
-            aria-label="Inserir uma nova TODO"
-            placeholder="Correr, Estudar..."
+            aria-label="Criar tarefa"
+            placeholder="Criar tarefa"
             value={newTodoContent}
             onChange={function newTodoHandler(event) {
               setNewTodoContent(event.target.value);
             }}
           />
-          <button type="submit" aria-label="Adicionar novo item">
+          <button type="submit" aria-label="Criar tarefa">
             +
           </button>
         </form>
@@ -89,9 +90,9 @@ function HomePage() {
       <section>
         <form>
           <input
-            aria-label="Filtrar lista"
+            aria-label="Filtrar lista de tarefas"
             type="text"
-            placeholder="Filtrar lista atual, ex: Dentista"
+            placeholder="Filtrar lista de tarefas"
             value={search}
             onChange={function handleSearch(event) {
               setSearch(event.target.value);
@@ -105,28 +106,40 @@ function HomePage() {
               <th align="left">
                 <input type="checkbox" disabled />
               </th>
-              <th align="left">Id</th>
+              <th align="left">ID</th>
               <th align="left">Conteúdo</th>
               <th />
             </tr>
           </thead>
 
           <tbody>
-            {homeTodos.map((currentTodo) => {
+            {homeTodos.map((todo) => {
               return (
-                <tr key={currentTodo.id}>
+                <tr key={todo.id}>
                   <td>
                     <input
                       type="checkbox"
-                      onChange={() => {
-                        function handleToggle() {
-                          todoController.toggleDone(currentTodo.id);
-                        }
+                      aria-label="Tarefa concluída"
+                      defaultChecked={todo.done}
+                      onChange={function handleToggle() {
+                        todoController.toggleDone(todo.id);
+                        // optimistic update
+                        setTodos((currentTodos) => {
+                          return currentTodos.map((currentTodo) => {
+                            if (currentTodo.id === todo.id) {
+                              return {
+                                ...currentTodo,
+                                done: !currentTodo.done,
+                              };
+                            }
+                            return currentTodo;
+                          });
+                        });
                       }}
                     />
                   </td>
-                  <td>{currentTodo.id.substring(0, 4)}</td>
-                  <td>{currentTodo.content}</td>
+                  <td>{todo.id.substring(0, 4)}</td>
+                  <td>{todo.content}</td>
                   <td align="right">
                     <button data-type="delete">Apagar</button>
                   </td>
@@ -173,16 +186,7 @@ function HomePage() {
                         });
                     }}
                   >
-                    Carregar mais
-                    <span
-                      style={{
-                        display: "inline-block",
-                        marginLeft: "4px",
-                        fontSize: "1.2em",
-                      }}
-                    >
-                      ↓
-                    </span>
+                    Carregar mais tarefas
                   </button>
                 </td>
               </tr>

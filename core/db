@@ -118,19 +118,19 @@
       "id": "67c7ea30-c0d8-48e9-a733-5483442e7daa",
       "date": "2023-08-17T02:45:05.589Z",
       "content": "ok",
-      "done": false
+      "done": true
     },
     {
       "id": "6113f226-a8ee-4fc1-8b43-0fc24e29fb12",
       "date": "2023-08-17T02:45:25.246Z",
       "content": "oi",
-      "done": false
+      "done": true
     },
     {
       "id": "54f274de-72da-45e6-870b-77d7af0c3bb7",
       "date": "2023-08-17T02:53:21.834Z",
       "content": "s",
-      "done": false
+      "done": true
     }
   ]
 }
