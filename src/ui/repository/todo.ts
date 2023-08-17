@@ -31,14 +31,6 @@ export const todoRepository = {
   get,
 };
 
-// // Model/Schema
-// interface Todo {
-//   id: string;
-//   content: string;
-//   date: Date;
-//   done: boolean;
-// }
-
 function parseTodosFromServer(responseBody: unknown): {
   total: number;
   pages: number;

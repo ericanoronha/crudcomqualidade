@@ -1,4 +1,5 @@
 import { todoRepository } from "@ui/repository/todo";
+import { Todo } from "@ui/schema/todo";
 
 interface TodoControllerGetParams {
   page: number;
@@ -23,8 +24,7 @@ function filterTodosByContent<Todo>(
 interface TodoControllerCreateParams {
   content?: string;
   onError: () => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onSuccess: (todo: any) => void;
+  onSuccess: (todo: Todo) => void;
 }
 
 function create({ content, onSuccess, onError }: TodoControllerCreateParams) {
@@ -38,7 +38,7 @@ function create({ content, onSuccess, onError }: TodoControllerCreateParams) {
   const todo = {
     id: "12345",
     content,
-    date: new Date(),
+    date: new Date().toISOString(),
     done: false,
   };
   onSuccess(todo);
