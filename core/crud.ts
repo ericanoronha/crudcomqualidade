@@ -54,7 +54,7 @@ export function update(id: UUID, partialTodo: Partial<Todo>): Todo {
   return updatedTodo;
 }
 
-export function updateContentById(id: UUID, content: string): Todo {
+function updateContentById(id: UUID, content: string): Todo {
   return update(id, { content });
 }
 

@@ -90,9 +90,9 @@ function HomePage() {
       <section>
         <form>
           <input
-            aria-label="Filtrar lista de tarefas"
             type="text"
             placeholder="Filtrar lista de tarefas"
+            aria-label="Filtrar lista de tarefas"
             value={search}
             onChange={function handleSearch(event) {
               setSearch(event.target.value);
@@ -104,7 +104,7 @@ function HomePage() {
           <thead>
             <tr>
               <th align="left">
-                <input type="checkbox" disabled />
+                <input type="checkbox" disabled aria-label="Status da tarefa" />
               </th>
               <th align="left">ID</th>
               <th align="left">Conteúdo</th>
@@ -118,28 +118,37 @@ function HomePage() {
                 <tr key={todo.id}>
                   <td>
                     <input
-                      type="checkbox"
                       aria-label="Tarefa concluída"
-                      defaultChecked={todo.done}
+                      type="checkbox"
+                      checked={todo.done}
                       onChange={function handleToggle() {
-                        todoController.toggleDone(todo.id);
-                        // optimistic update
-                        setTodos((currentTodos) => {
-                          return currentTodos.map((currentTodo) => {
-                            if (currentTodo.id === todo.id) {
-                              return {
-                                ...currentTodo,
-                                done: !currentTodo.done,
-                              };
-                            }
-                            return currentTodo;
-                          });
+                        todoController.toggleDone({
+                          id: todo.id,
+                          onError() {
+                            alert("Falha ao atualizar status da tarefa");
+                          },
+                          updateTodoOnScreen() {
+                            setTodos((currentTodos) => {
+                              return currentTodos.map((currentTodo) => {
+                                if (currentTodo.id === todo.id) {
+                                  return {
+                                    ...currentTodo,
+                                    done: !currentTodo.done,
+                                  };
+                                }
+                                return currentTodo;
+                              });
+                            });
+                          },
                         });
                       }}
                     />
                   </td>
                   <td>{todo.id.substring(0, 4)}</td>
-                  <td>{todo.content}</td>
+                  <td>
+                    {!todo.done && todo.content}
+                    {todo.done && <s>{todo.content}</s>}
+                  </td>
                   <td align="right">
                     <button data-type="delete">Apagar</button>
                   </td>

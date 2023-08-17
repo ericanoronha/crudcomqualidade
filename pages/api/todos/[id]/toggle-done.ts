@@ -8,7 +8,6 @@ export default function handler(
   //response.status(200).json({ message: "Toggle done!" });
   if (request.method === "PUT") {
     todoController.toggleDone(request, response);
-    response.status(200).json({ message: "Toggle done!" });
     return;
   }
 

@@ -46,9 +46,30 @@ function create({ content, onSuccess, onError }: TodoControllerCreateParams) {
     });
 }
 
-function toggleDone(todoId: string) {
-  // chama repository
-  todoRepository.toggleDone(todoId);
+interface TodoControllerToggleDoneParams {
+  id: string;
+  updateTodoOnScreen: () => void;
+  onError: () => void;
+}
+
+function toggleDone({
+  id,
+  updateTodoOnScreen,
+  onError,
+}: TodoControllerToggleDoneParams) {
+  // // optimistic update
+  // updateTodoOnScreen();
+  // todoRepository.toggleDone(id);
+
+  todoRepository
+    .toggleDone(id)
+    .then(() => {
+      // real update
+      updateTodoOnScreen();
+    })
+    .catch(() => {
+      onError();
+    });
 }
 
 export const todoController = {
