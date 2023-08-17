@@ -6,5 +6,15 @@ export default function handler(
   response: NextApiResponse
 ) {
   //response.status(200).json({ message: "Toggle done!" });
-  todoController.toggleDone(request, response);
+  if (request.method === "PUT") {
+    todoController.toggleDone(request, response);
+    response.status(200).json({ message: "Toggle done!" });
+    return;
+  }
+
+  response.status(405).json({
+    error: {
+      message: "Method not allowed",
+    },
+  });
 }

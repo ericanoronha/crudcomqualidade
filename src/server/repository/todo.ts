@@ -37,13 +37,12 @@ async function createByContent(content: string): Promise<Todo> {
 }
 
 async function toggleDone(id: string): Promise<Todo> {
-  const currentStatus = false;
   const ALL_TODOS = read();
   const todo = ALL_TODOS.find((todo) => todo.id === id);
   if (!todo) throw new Error(`Todo ${id} not found`);
 
   const updatedTodo = update(todo.id, {
-    done: !currentStatus,
+    done: !todo.done,
   });
   return updatedTodo;
 }

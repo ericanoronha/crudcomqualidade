@@ -75,7 +75,6 @@ async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    //const updatedTodo = { id: todoId };
     // chamar repository
     const updatedTodo = await todoRepository.toggleDone(todoId);
 
