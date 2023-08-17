@@ -46,8 +46,14 @@ function create({ content, onSuccess, onError }: TodoControllerCreateParams) {
     });
 }
 
+function toggleDone(todoId: string) {
+  // chama repository
+  todoRepository.toggleDone(todoId);
+}
+
 export const todoController = {
   get,
   filterTodosByContent,
   create,
+  toggleDone,
 };

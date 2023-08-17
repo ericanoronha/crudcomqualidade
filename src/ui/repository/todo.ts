@@ -30,11 +30,6 @@ function get({
   );
 }
 
-export const todoRepository = {
-  get,
-  createByContent,
-};
-
 export async function createByContent(content: string): Promise<Todo> {
   const response = await fetch("/api/todos", {
     method: "POST",
@@ -109,3 +104,29 @@ function parseTodosFromServer(responseBody: unknown): {
     todos: [],
   };
 }
+
+export async function toggleDone(todoId: string): Promise<Todo> {
+  const response = await fetch(`/api/todos/${todoId}/toggle-done`, {
+    method: "PUT",
+  });
+  if (response.ok) {
+    const serverResponse = await response.json();
+    const ServerResponseSchema = schema.object({
+      todo: TodoSchema,
+    });
+    const serverResponseParsed = ServerResponseSchema.safeParse(serverResponse);
+    if (!serverResponseParsed.success) {
+      throw new Error(`Failed to update status of id ${todoId}`);
+    }
+    const updatedTodo = serverResponseParsed.data.todo;
+    return updatedTodo;
+  }
+
+  throw new Error("Server error");
+}
+
+export const todoRepository = {
+  get,
+  createByContent,
+  toggleDone,
+};

@@ -116,7 +116,14 @@ function HomePage() {
               return (
                 <tr key={currentTodo.id}>
                   <td>
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      onChange={() => {
+                        function handleToggle() {
+                          todoController.toggleDone(currentTodo.id);
+                        }
+                      }}
+                    />
                   </td>
                   <td>{currentTodo.id.substring(0, 4)}</td>
                   <td>{currentTodo.content}</td>
