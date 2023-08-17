@@ -5,7 +5,6 @@ export default function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  //response.status(200).json({ message: "Toggle done!" });
   if (request.method === "PUT") {
     todoController.toggleDone(request, response);
     return;
