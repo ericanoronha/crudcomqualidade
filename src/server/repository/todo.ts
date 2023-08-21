@@ -54,7 +54,6 @@ async function toggleDone(id: string): Promise<Todo> {
 }
 
 async function deleteById(id: string) {
-  // call deleteById from core/crud
   const ALL_TODOS = read();
   const todo = ALL_TODOS.find((todo) => todo.id === id);
 

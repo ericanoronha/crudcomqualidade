@@ -1,7 +1,7 @@
-import { HttpNotFoundError } from "@server/infra/errors";
-import { todoRepository } from "@server/repository/todo";
 import { NextApiRequest, NextApiResponse } from "next";
 import { z as schema } from "zod";
+import { todoRepository } from "@server/repository/todo";
+import { HttpNotFoundError } from "@server/infra/errors";
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
   const query = req.query;
@@ -40,12 +40,10 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 const TodoCreateBodySchema = schema.object({
   content: schema.string(),
 });
-
 async function create(req: NextApiRequest, res: NextApiResponse) {
-  // fail fast
+  // Fail Fast Validations
   const body = TodoCreateBodySchema.safeParse(req.body);
-
-  // type narrowing
+  // Type Narrowing
   if (!body.success) {
     res.status(400).json({
       error: {
@@ -55,7 +53,7 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
     });
     return;
   }
-
+  // Here we have the data!
   const createdTodo = await todoRepository.createByContent(body.data.content);
 
   res.status(201).json({
@@ -66,27 +64,26 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
 async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
   const todoId = req.query.id;
 
+  // Fail Fast Validation
   if (!todoId || typeof todoId !== "string") {
     res.status(400).json({
       error: {
-        message: "You must provide a string ID",
+        message: "You must to provide a string ID",
       },
     });
     return;
   }
 
   try {
-    // chamar repository
     const updatedTodo = await todoRepository.toggleDone(todoId);
-
     res.status(200).json({
       todo: updatedTodo,
     });
-  } catch (erro) {
-    if (erro instanceof Error) {
+  } catch (err) {
+    if (err instanceof Error) {
       res.status(404).json({
         error: {
-          message: erro.message,
+          message: err.message,
         },
       });
     }
@@ -97,8 +94,7 @@ async function deleteById(req: NextApiRequest, res: NextApiResponse) {
   const QuerySchema = schema.object({
     id: schema.string().uuid().nonempty(),
   });
-
-  // fail fast
+  // Fail Fast
   const parsedQuery = QuerySchema.safeParse(req.query);
   if (!parsedQuery.success) {
     res.status(400).json({

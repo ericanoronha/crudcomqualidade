@@ -5,7 +5,7 @@ export default function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  if (request.method === "DELTE") {
+  if (request.method === "DELETE") {
     todoController.deleteById(request, response);
     return;
   }
