@@ -58,7 +58,7 @@ function updateContentById(id: UUID, content: string): Todo {
   return update(id, { content });
 }
 
-function deleteById(id: UUID) {
+export function deleteById(id: UUID) {
   const all = read();
   const allExceptOne = all.filter((todo) => {
     if (id === todo.id) {
