@@ -4,13 +4,15 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    "cypress/globals": true,
   },
-  plugins: ["react", "prettier", "@typescript-eslint"],
+  plugins: ["react", "prettier", "@typescript-eslint", "cypress"],
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
+    "plugin:cypress/recommended",
+    "plugin:prettier/recommended", //recomendação é deixar prettier por último
   ],
   overrides: [],
   parserOptions: {

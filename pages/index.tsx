@@ -74,6 +74,7 @@ function HomePage() {
         >
           <input
             type="text"
+            name="add-todo"
             aria-label="Criar tarefa"
             placeholder="Criar tarefa"
             value={newTodoContent}
