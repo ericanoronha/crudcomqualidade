@@ -6,12 +6,21 @@ module.exports = {
     node: true,
     "cypress/globals": true,
   },
-  plugins: ["react", "prettier", "@typescript-eslint", "cypress"],
+  plugins: [
+    "react",
+    "prettier",
+    "@typescript-eslint",
+    "cypress",
+    "chai-friendly",
+    "no-only-tests",
+  ],
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
+    "plugin:chai-friendly/recommended",
     "plugin:cypress/recommended",
+    "no-only-tests/no-only-tests",
     "plugin:prettier/recommended", //recomendação é deixar prettier por último
   ],
   overrides: [],
