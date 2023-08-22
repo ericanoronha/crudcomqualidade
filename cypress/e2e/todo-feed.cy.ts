@@ -23,13 +23,11 @@ describe("/ - Todos Feed", () => {
 
     // 1 - abrir a página
     cy.visit(BASE_URL);
-    // 2 - selecionar o input de criar nova todo
-    const $inputAddTodo = cy.get("input[name='add-todo']");
-    // 3 - digitar no input de criar nova todo
-    $inputAddTodo.type("Test todo");
+    // 2 - selecionar o input de criar nova todo e 3 - digitar no input de criar nova todo
+    cy.get("input[name='add-todo']").type("Test todo");
     // 4 - clicar no botão
-    const $btnAddTodo = cy.get("button[type='submit']");
-    $btnAddTodo.click();
+    const buttonAddTodo = "button[type='submit']";
+    cy.get(buttonAddTodo).click();
 
     // 5 - Checar se na página surgiu um novo elemento
     cy.get("table > tbody").contains("Test todo");
