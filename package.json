@@ -11,9 +11,9 @@
     "start": "next start",
     "lint": "eslint \"./**/*.{jsx,jsx,ts,tsx}\"",
     "lint:fix": "npm run lint -- --fix",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "test": "npm run cy:run",
     "clean": "rm -rf node_module"
   },
   "repository": {
@@ -41,7 +41,8 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "nodemon": "^3.0.1",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "start-server-and-test": "^2.0.0"
   },
   "dependencies": {
     "next": "^13.4.13",
