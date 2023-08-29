@@ -5,9 +5,9 @@ on:
   pull_request:
     types: [opened, synchronize]
 
-  jobs:
-    lint:
-      runs-on: ubuntu-latest
-      steps:
-        - name: "Lint"
-          run: "echo 'hello world'"
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Lint"
+        run: "echo 'hello world'"
