@@ -20,8 +20,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:chai-friendly/recommended",
     "plugin:cypress/recommended",
-    "no-only-tests/no-only-tests",
-    "plugin:prettier/recommended", //recomendação é deixar prettier por último
+    "plugin:prettier/recommended",
   ],
   overrides: [],
   parserOptions: {
