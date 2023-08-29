@@ -35,6 +35,7 @@ module.exports = {
   },
   ignorePatterns: ["node_modules/", "_explicacoes/"],
   rules: {
+    "no-only-tests/no-only-tests": "error",
     "no-console": ["error", { allow: ["warn", "error"] }],
     "react/no-unknown-property": ["error", { ignore: ["jsx", "global"] }],
   },

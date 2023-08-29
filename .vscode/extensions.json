@@ -2,6 +2,7 @@
   "recommendations": [
     "EditorConfig.EditorConfig",
     "dbaeumer.vscode-eslint",
-    "rangav.vscode-thunder-client"
+    "rangav.vscode-thunder-client",
+    "github.vscode-github-actions"
   ]
 }
