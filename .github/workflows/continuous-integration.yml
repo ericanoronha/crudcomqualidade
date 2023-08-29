@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Lint"
-        run: "echo 'hello world'"
+        run: "echo 'teste'"
