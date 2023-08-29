@@ -1,12 +1,12 @@
-const BASE_URL = "http://localhost:3029";
+const BASE_URL = "http://localhost:3029"; // sem trailing slash
 
 describe("/ - Todos Feed", () => {
   it("should render the page", () => {
-    // trailing slash
     cy.visit(BASE_URL);
   });
-  it.only("should display a new todo on feed right after its creation", () => {
-    // 0 - interceptações/interceptação
+
+  it("should display a new todo on feed right after its creation", () => {
+    // 0 - interceptações/interceptação de requisição
     cy.intercept("POST", `${BASE_URL}/api/todos`, (request) => {
       request.reply({
         statusCode: 201,
@@ -19,7 +19,7 @@ describe("/ - Todos Feed", () => {
           },
         },
       });
-    }).as("createTodo"); // intercept alias
+    }).as("createTodo"); // intercept alias (função de criação)
 
     // 1 - abrir a página
     cy.visit(BASE_URL);
