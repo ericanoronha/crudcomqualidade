@@ -25,7 +25,7 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  const output = todoRepository.get({
+  const output = await todoRepository.get({
     page,
     limit,
   });
@@ -40,6 +40,7 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 const TodoCreateBodySchema = schema.object({
   content: schema.string(),
 });
+
 async function create(req: NextApiRequest, res: NextApiResponse) {
   // Fail Fast Validations
   const body = TodoCreateBodySchema.safeParse(req.body);

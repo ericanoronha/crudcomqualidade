@@ -6,6 +6,15 @@ import {
 } from "@db-crud-todo";
 import { HttpNotFoundError } from "@server/infra/errors";
 
+// supabase
+// =========
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.SUPABASE_URL || "";
+const supabaseKey = process.env.SUPABASE_PUBLIC_KEY || "";
+const supabase = createClient(supabaseUrl, supabaseKey);
+// ===========
+
 interface TodoRepositoryGetParams {
   page?: number;
   limit?: number;
@@ -17,24 +26,26 @@ interface TodoRepositoryGetOutput {
   pages: number;
 }
 
-function get({
+async function get({
   page,
   limit,
-}: TodoRepositoryGetParams = {}): TodoRepositoryGetOutput {
-  const currentPage = page || 1;
-  const currentLimit = limit || 10;
-  const ALL_TODOS = read().reverse();
+}: TodoRepositoryGetParams = {}): Promise<TodoRepositoryGetOutput> {
+  const supabaseOutput = await supabase.from("todos").select("*"); // é uma promise
 
-  const startIndex = (currentPage - 1) * currentLimit;
-  const endIndex = currentPage * currentLimit;
-  const paginatedTodos = ALL_TODOS.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(ALL_TODOS.length / currentLimit);
+  // const currentPage = page || 1;
+  // const currentLimit = limit || 10;
+  // const ALL_TODOS = read().reverse();
 
-  return {
-    todos: paginatedTodos,
-    total: ALL_TODOS.length,
-    pages: totalPages,
-  };
+  // const startIndex = (currentPage - 1) * currentLimit;
+  // const endIndex = currentPage * currentLimit;
+  // const paginatedTodos = ALL_TODOS.slice(startIndex, endIndex);
+  // const totalPages = Math.ceil(ALL_TODOS.length / currentLimit);
+
+  // return {
+  //   todos: paginatedTodos,
+  //   total: ALL_TODOS.length,
+  //   pages: totalPages,
+  // };
 }
 
 async function createByContent(content: string): Promise<Todo> {
