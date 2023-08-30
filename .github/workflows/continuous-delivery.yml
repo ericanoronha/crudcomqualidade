@@ -9,7 +9,6 @@ on:
     types: [opened, synchronize]
 
 env:
-  VERCEL_TOKEN: 3SnRHuksHWIPejTWdPfIvuaY
   VERCEL_ORG_ID: qSF70HbM6jOw09YmWCfQKmRO
   VERCEL_PROJECT_ID: prj_C6JFUrfcTtcMSLEDZRJ9R9yxUSJh
 
