@@ -11,7 +11,7 @@ import { HttpNotFoundError } from "@server/infra/errors";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.SUPABASE_URL || "";
-const supabaseKey = process.env.SUPABASE_PUBLIC_KEY || "";
+const supabaseKey = process.env.SUPABASE_SECRET_KEY || "";
 const supabase = createClient(supabaseUrl, supabaseKey);
 // ===========
 
@@ -30,7 +30,19 @@ async function get({
   page,
   limit,
 }: TodoRepositoryGetParams = {}): Promise<TodoRepositoryGetOutput> {
-  const supabaseOutput = await supabase.from("todos").select("*"); // é uma promise
+  const { data, error, count } = await supabase.from("todos").select("*"); // é uma promise
+  if (error) throw new Error("Failed to fetch data");
+  // eslint-disable-next-line no-console
+  //console.log(data);
+
+  //TODO: validate with schema
+  const todos = data as Todo[];
+  const total = count || todos.length;
+  return {
+    todos,
+    total,
+    pages: 1,
+  };
 
   // const currentPage = page || 1;
   // const currentLimit = limit || 10;
