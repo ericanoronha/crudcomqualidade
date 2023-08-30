@@ -1,9 +1,3 @@
-import {
-  read,
-  create,
-  update,
-  deleteById as dbDeleteById,
-} from "@db-crud-todo";
 import { HttpNotFoundError } from "@server/infra/errors";
 import { Todo, TodoSchema } from "@server/schema/todo";
 
@@ -78,20 +72,51 @@ async function createByContent(content: string): Promise<Todo> {
   // return newTodo;
 }
 
-async function toggleDone(id: string): Promise<Todo> {
-  const ALL_TODOS = read();
-  const todo = ALL_TODOS.find((todo) => todo.id === id);
-  if (!todo) throw new Error(`Todo ${id} not found`);
+async function getTodoById(id: string): Promise<Todo> {
+  const { data, error } = await supabase
+    .from("todos")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-  const updatedTodo = update(todo.id, {
-    done: !todo.done,
-  });
-  return updatedTodo;
+  if (error) throw new HttpNotFoundError(`Todo with id "${id}" not found`);
+
+  const parsedData = TodoSchema.safeParse(data);
+  if (!parsedData.success) throw new Error("Failed to parse TODO created");
+
+  return parsedData.data;
+}
+
+async function toggleDone(id: string): Promise<Todo> {
+  const todo = await getTodoById(id);
+  const { data, error } = await supabase
+    .from("todos")
+    .update({
+      done: !todo.done,
+    })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) throw new HttpNotFoundError(`Todo with id "${id}" not found`);
+
+  const parsedData = TodoSchema.safeParse(data);
+  if (!parsedData.success) throw new Error("Failed to update todo");
+
+  return parsedData.data;
+
+  // const ALL_TODOS = read();
+  // const todo = ALL_TODOS.find((todo) => todo.id === id);
+  // if (!todo) throw new Error(`Todo ${id} not found`);
+  // const updatedTodo = update(todo.id, {
+  //   done: !todo.done,
+  // });
+  // return updatedTodo;
 }
 
 async function deleteById(id: string) {
   const { error } = await supabase.from("todos").delete().match({ id });
-  if (error) throw new HttpNotFoundError(`Todo with id "${id}" not found`);
+  if (error) throw new Error(`Failed to delete todo id "${id}"`);
 
   // const ALL_TODOS = read();
   // const todo = ALL_TODOS.find((todo) => todo.id === id);
