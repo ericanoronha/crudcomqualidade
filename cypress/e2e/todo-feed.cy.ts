@@ -29,10 +29,12 @@ describe("/ - Todos Feed", () => {
     const buttonAddTodo = "button[type='submit']";
     cy.get(buttonAddTodo).click();
 
+    //cy.wait("600ms");
+
     // 5 - Checar se na página surgiu um novo elemento
     cy.get("table > tbody").contains("Test todo");
 
     // Criar validações a partir de valores
-    expect("texto").to.be.equal("texto");
+    //expect("texto").to.be.equal("texto");
   });
 });
