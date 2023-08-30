@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   read,
   create,
@@ -30,34 +31,28 @@ async function get({
   page,
   limit,
 }: TodoRepositoryGetParams = {}): Promise<TodoRepositoryGetOutput> {
-  const { data, error, count } = await supabase.from("todos").select("*"); // é uma promise
+  const currentPage = page || 1;
+  const currentLimit = limit || 10;
+  const startIndex = (currentPage - 1) * currentLimit;
+  const endIndex = currentPage * currentLimit - 1;
+
+  const { data, error, count } = await supabase
+    .from("todos")
+    .select("*", {
+      count: "exact",
+    })
+    .range(startIndex, endIndex); // é uma promise
   if (error) throw new Error("Failed to fetch data");
-  // eslint-disable-next-line no-console
-  //console.log(data);
 
   //TODO: validate with schema
   const todos = data as Todo[];
   const total = count || todos.length;
+  const totalPages = Math.ceil(total / currentLimit);
   return {
-    todos,
+    todos: todos,
     total,
-    pages: 1,
+    pages: totalPages,
   };
-
-  // const currentPage = page || 1;
-  // const currentLimit = limit || 10;
-  // const ALL_TODOS = read().reverse();
-
-  // const startIndex = (currentPage - 1) * currentLimit;
-  // const endIndex = currentPage * currentLimit;
-  // const paginatedTodos = ALL_TODOS.slice(startIndex, endIndex);
-  // const totalPages = Math.ceil(ALL_TODOS.length / currentLimit);
-
-  // return {
-  //   todos: paginatedTodos,
-  //   total: ALL_TODOS.length,
-  //   pages: totalPages,
-  // };
 }
 
 async function createByContent(content: string): Promise<Todo> {
