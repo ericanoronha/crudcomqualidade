@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import {
   read,
   create,
@@ -43,7 +42,7 @@ async function get({
       count: "exact",
     })
     .order("date", { ascending: false })
-    .range(startIndex, endIndex); // é uma promise
+    .range(startIndex, endIndex);
   if (error) throw new Error("Failed to fetch data");
 
   const parsedData = TodoSchema.array().safeParse(data);
