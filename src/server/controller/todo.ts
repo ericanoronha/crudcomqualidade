@@ -42,9 +42,9 @@ const TodoCreateBodySchema = schema.object({
 });
 
 async function create(req: NextApiRequest, res: NextApiResponse) {
-  // Fail Fast Validations
+  // fail fast validation
   const body = TodoCreateBodySchema.safeParse(req.body);
-  // Type Narrowing
+  // type narrowing
   if (!body.success) {
     res.status(400).json({
       error: {
@@ -54,18 +54,26 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
     });
     return;
   }
-  // Here we have the data!
-  const createdTodo = await todoRepository.createByContent(body.data.content);
+  // here we have the data!
+  try {
+    const createdTodo = await todoRepository.createByContent(body.data.content);
 
-  res.status(201).json({
-    todo: createdTodo,
-  });
+    res.status(201).json({
+      todo: createdTodo,
+    });
+  } catch {
+    res.status(400).json({
+      error: {
+        message: "Failed to create todo",
+      },
+    });
+  }
 }
 
 async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
   const todoId = req.query.id;
 
-  // Fail Fast Validation
+  // fail fast validation
   if (!todoId || typeof todoId !== "string") {
     res.status(400).json({
       error: {
@@ -95,7 +103,7 @@ async function deleteById(req: NextApiRequest, res: NextApiResponse) {
   const QuerySchema = schema.object({
     id: schema.string().uuid().nonempty(),
   });
-  // Fail Fast
+  // fail fast validation
   const parsedQuery = QuerySchema.safeParse(req.query);
   if (!parsedQuery.success) {
     res.status(400).json({
