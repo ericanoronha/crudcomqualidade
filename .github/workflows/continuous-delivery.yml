@@ -9,8 +9,8 @@ on:
     types: [opened, synchronize]
 
 env:
-  VERCEL_ORG_ID: nvquWHxA3eADFldS6IK8tX7W
-  VERCEL_PROJECT_ID: prj_63AYbMLPiYGiYreBLPVr4mos1mKu
+  VERCEL_ORG_ID: qSF70HbM6jOw09YmWCfQKmRO
+  VERCEL_PROJECT_ID: prj_C6JFUrfcTtcMSLEDZRJ9R9yxUSJh
 
 jobs:
   deploy:
