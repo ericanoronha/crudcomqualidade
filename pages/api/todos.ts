@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { NextApiRequest, NextApiResponse } from "next";
 import { todoController } from "@server/controller/todo";
 
@@ -6,8 +5,6 @@ export default async function handler(
   request: NextApiRequest,
   response: NextApiResponse
 ) {
-  console.log(request.method);
-
   if (request.method === "GET") {
     await todoController.get(request, response);
     return;

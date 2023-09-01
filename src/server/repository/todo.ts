@@ -59,9 +59,6 @@ async function createByContent(content: string): Promise<Todo> {
 
   const parsedData = TodoSchema.parse(data);
   return parsedData;
-
-  // const newTodo = create(content);
-  // return newTodo;
 }
 
 async function getTodoById(id: string): Promise<Todo> {
@@ -96,25 +93,11 @@ async function toggleDone(id: string): Promise<Todo> {
   if (!parsedData.success) throw new Error("Failed to update todo");
 
   return parsedData.data;
-
-  // const ALL_TODOS = read();
-  // const todo = ALL_TODOS.find((todo) => todo.id === id);
-  // if (!todo) throw new Error(`Todo ${id} not found`);
-  // const updatedTodo = update(todo.id, {
-  //   done: !todo.done,
-  // });
-  // return updatedTodo;
 }
 
 async function deleteById(id: string) {
   const { error } = await supabase.from("todos").delete().match({ id });
   if (error) throw new Error(`Failed to delete todo id "${id}"`);
-
-  // const ALL_TODOS = read();
-  // const todo = ALL_TODOS.find((todo) => todo.id === id);
-
-  // if (!todo) throw new HttpNotFoundError(`Todo with id "${id}" not found`);
-  // dbDeleteById(id);
 }
 
 export const todoRepository = {

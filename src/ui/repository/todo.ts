@@ -43,12 +43,10 @@ export async function createByContent(content: string): Promise<Todo> {
 
   if (response.ok) {
     const serverResponse = await response.json();
-    // validação de tipo com schema // { todo: Todo }
     const ServerResponseSchema = schema.object({
       todo: TodoSchema,
     });
     const serverResponseParsed = ServerResponseSchema.safeParse(serverResponse);
-    //console.log("serverResponse ", serverResponse);
 
     if (!serverResponseParsed.success) {
       throw new Error("Failed to create TODO");

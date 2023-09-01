@@ -42,9 +42,7 @@ const TodoCreateBodySchema = schema.object({
 });
 
 async function create(req: NextApiRequest, res: NextApiResponse) {
-  // fail fast validation
   const body = TodoCreateBodySchema.safeParse(req.body);
-  // type narrowing
   if (!body.success) {
     res.status(400).json({
       error: {
@@ -54,7 +52,6 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
     });
     return;
   }
-  // here we have the data!
   try {
     const createdTodo = await todoRepository.createByContent(body.data.content);
 
@@ -73,7 +70,6 @@ async function create(req: NextApiRequest, res: NextApiResponse) {
 async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
   const todoId = req.query.id;
 
-  // fail fast validation
   if (!todoId || typeof todoId !== "string") {
     res.status(400).json({
       error: {
@@ -103,7 +99,7 @@ async function deleteById(req: NextApiRequest, res: NextApiResponse) {
   const QuerySchema = schema.object({
     id: schema.string().uuid().nonempty(),
   });
-  // fail fast validation
+
   const parsedQuery = QuerySchema.safeParse(req.query);
   if (!parsedQuery.success) {
     res.status(400).json({
