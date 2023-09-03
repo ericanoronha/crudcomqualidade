@@ -29,7 +29,6 @@ interface TodoControllerCreateParams {
 }
 
 function create({ content, onSuccess, onError }: TodoControllerCreateParams) {
-  // fail fast
   const parsedParams = schema.string().nonempty().safeParse(content);
   if (!parsedParams.success) {
     onError();
@@ -57,14 +56,9 @@ function toggleDone({
   updateTodoOnScreen,
   onError,
 }: TodoControllerToggleDoneParams) {
-  // // optimistic update
-  // updateTodoOnScreen();
-  // todoRepository.toggleDone(id);
-
   todoRepository
     .toggleDone(id)
     .then(() => {
-      // real update
       updateTodoOnScreen();
     })
     .catch(() => {

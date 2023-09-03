@@ -7,15 +7,6 @@ export const TodoSchema = schema.object({
     return new Date(date).toISOString();
   }),
   done: schema.boolean(),
-  /*
-  se done estiver como string no db, pode converter assim:
-  done: schema.string().transform((done)=>{
-    if (done === "true") {
-    return true;
-    }
-    return false;
-  })
-  */
 });
 
 export type Todo = schema.infer<typeof TodoSchema>;
