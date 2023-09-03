@@ -13,11 +13,6 @@ async function get(req: Request) {
   const limit = Number(query.limit);
 
   if (query.page && isNaN(page)) {
-    // res.status(400).json({
-    //   error: {
-    //     message: "`page` must be a number",
-    //   },
-    // });
     return new Response(
       JSON.stringify({
         error: {
@@ -30,11 +25,6 @@ async function get(req: Request) {
     );
   }
   if (query.limit && isNaN(limit)) {
-    // res.status(400).json({
-    //   error: {
-    //     message: "`limit` must be a number",
-    //   },
-    // });
     return new Response(
       JSON.stringify({
         error: {
@@ -47,26 +37,34 @@ async function get(req: Request) {
     );
   }
 
-  const output = await todoRepository.get({
-    page,
-    limit,
-  });
+  try {
+    const output = await todoRepository.get({
+      page,
+      limit,
+    });
 
-  // res.status(200).json({
-  //   total: output.total,
-  //   pages: output.pages,
-  //   todos: output.todos,
-  // });
-  return new Response(
-    JSON.stringify({
-      total: output.total,
-      pages: output.pages,
-      todos: output.todos,
-    }),
-    {
-      status: 200,
-    }
-  );
+    return new Response(
+      JSON.stringify({
+        total: output.total,
+        pages: output.pages,
+        todos: output.todos,
+      }),
+      {
+        status: 200,
+      }
+    );
+  } catch {
+    return new Response(
+      JSON.stringify({
+        error: {
+          message: "Failed to fetch /api/todos",
+        },
+      }),
+      {
+        status: 400,
+      }
+    );
+  }
 }
 
 const TodoCreateBodySchema = schema.object({
