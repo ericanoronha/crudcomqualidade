@@ -74,12 +74,6 @@ const TodoCreateBodySchema = schema.object({
 async function create(req: Request) {
   const body = TodoCreateBodySchema.safeParse(await req.body);
   if (!body.success) {
-    // res.status(400).json({
-    //   error: {
-    //     message: "You need to provide a content to create a TODO",
-    //     description: body.error.issues,
-    //   },
-    // });
     return new Response(
       JSON.stringify({
         error: {
@@ -95,9 +89,6 @@ async function create(req: Request) {
   try {
     const createdTodo = await todoRepository.createByContent(body.data.content);
 
-    // res.status(201).json({
-    //   todo: createdTodo,
-    // });
     return new Response(
       JSON.stringify({
         todo: createdTodo,
@@ -107,11 +98,6 @@ async function create(req: Request) {
       }
     );
   } catch {
-    // res.status(400).json({
-    //   error: {
-    //     message: "Failed to create todo",
-    //   },
-    // });
     return new Response(
       JSON.stringify({
         error: {
