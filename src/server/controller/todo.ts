@@ -111,15 +111,10 @@ async function create(req: Request) {
   }
 }
 
-async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
-  const todoId = req.query.id;
+async function toggleDone(req: Request, id: string) {
+  const todoId = id;
 
   if (!todoId || typeof todoId !== "string") {
-    // res.status(400).json({
-    //   error: {
-    //     message: "You must to provide a string ID",
-    //   },
-    // });
     return new Response(
       JSON.stringify({
         error: {
@@ -134,9 +129,6 @@ async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const updatedTodo = await todoRepository.toggleDone(todoId);
-    // res.status(200).json({
-    //   todo: updatedTodo,
-    // });
     return new Response(
       JSON.stringify({
         todo: updatedTodo,
@@ -147,11 +139,6 @@ async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
     );
   } catch (err) {
     if (err instanceof Error) {
-      // res.status(404).json({
-      //   error: {
-      //     message: err.message,
-      //   },
-      // });
       return new Response(
         JSON.stringify({
           error: {
@@ -166,7 +153,7 @@ async function toggleDone(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-async function deleteById(req: NextApiRequest, res: NextApiResponse) {
+async function deleteById(req: Request) {
   const QuerySchema = schema.object({
     id: schema.string().uuid().nonempty(),
   });
