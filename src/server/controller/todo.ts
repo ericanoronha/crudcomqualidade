@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { z as schema } from "zod";
 import { todoRepository } from "@server/repository/todo";
 import { HttpNotFoundError } from "@server/infra/errors";
@@ -72,7 +71,7 @@ const TodoCreateBodySchema = schema.object({
 });
 
 async function create(req: Request) {
-  const body = TodoCreateBodySchema.safeParse(await req.body);
+  const body = TodoCreateBodySchema.safeParse(await req.json());
   if (!body.success) {
     return new Response(
       JSON.stringify({
