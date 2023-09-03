@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.33.1",
-    "next": "^13.4.13",
+    "next": "^13.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^5.1.6",
