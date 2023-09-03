@@ -153,18 +153,17 @@ async function toggleDone(req: Request, id: string) {
   }
 }
 
-async function deleteById(req: Request) {
+async function deleteById(req: Request, id: string) {
+  const query = {
+    id,
+  };
+
   const QuerySchema = schema.object({
     id: schema.string().uuid().nonempty(),
   });
 
-  const parsedQuery = QuerySchema.safeParse(req.query);
+  const parsedQuery = QuerySchema.safeParse(query);
   if (!parsedQuery.success) {
-    // res.status(400).json({
-    //   error: {
-    //     message: `You must to provide a valid id`,
-    //   },
-    // });
     return new Response(
       JSON.stringify({
         error: {
@@ -180,17 +179,11 @@ async function deleteById(req: Request) {
   try {
     const todoId = parsedQuery.data.id;
     await todoRepository.deleteById(todoId);
-    // res.status(204).end();
-    return new Response(end(), {
+    return new Response(null, {
       status: 204,
     });
   } catch (err) {
     if (err instanceof HttpNotFoundError) {
-      // return res.status(err.status).json({
-      //   error: {
-      //     message: err.message,
-      //   },
-      // });
       return new Response(
         JSON.stringify({
           error: {
@@ -203,11 +196,6 @@ async function deleteById(req: Request) {
       );
     }
 
-    // res.status(500).json({
-    //   error: {
-    //     message: `Internal server error`,
-    //   },
-    // });
     return new Response(
       JSON.stringify({
         error: {
